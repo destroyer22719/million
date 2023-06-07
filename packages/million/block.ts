@@ -37,7 +37,26 @@ const HOLE_PROXY = new Proxy(
     },
   },
 );
-
+/**
+ * 
+ * A Block function. Only immutables and the `Block` type are allowed as props. 
+ * 
+ * To use with TypeScript
+ * @example
+ * ```ts
+ * import { block } from 'million';
+ * 
+ * type Props = {
+ *  value: string;
+ * }
+ * 
+ * const MyBlock = block<Props>(({ value }) => {
+ *   return <div>{value}</div>;
+ * });
+ * ```
+ * For more information see documentation
+ * https://million.dev/docs/block
+ */
 export const block = <P extends ReactProps>(
   fn: (props?: P) => VElement,
   unwrap?: (vnode: any) => VNode,
