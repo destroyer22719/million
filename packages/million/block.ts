@@ -15,7 +15,7 @@ import {
   childAt,
 } from './dom';
 import { renderToTemplate } from './template';
-import { AbstractBlock } from './types';
+import { AbstractBlock, ReactProps } from './types';
 import { arrayMount$, arrayPatch$ } from './array';
 import {
   TEXT_NODE_CACHE,
@@ -38,7 +38,7 @@ const HOLE_PROXY = new Proxy(
   },
 );
 
-export const block = <P extends Props>(
+export const block = <P extends ReactProps>(
   fn: (props?: P) => VElement,
   unwrap?: (vnode: any) => VNode,
   shouldUpdate?: (oldProps: P, newProps: P) => boolean,
@@ -61,7 +61,7 @@ export const block = <P extends Props>(
       root,
       edits,
       props,
-      key ?? props?.key,
+      key ??( props?.key) as string,
       shouldUpdateCurrentBlock ?? shouldUpdate,
     );
   };

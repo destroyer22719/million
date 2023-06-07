@@ -1,3 +1,5 @@
+import { Block } from "./block";
+
 declare const enum Flags {
   Child = 1,
   Attribute = 2,
@@ -16,6 +18,7 @@ export type VNode =
   | undefined
   | null;
 
+export type ReactProps = Record<string, string | number | boolean | undefined | null | bigint | symbol | Block>;
 export type Props = Record<string, any>;
 export interface VElement {
   type: string;
