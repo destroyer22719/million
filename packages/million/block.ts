@@ -38,12 +38,12 @@ const HOLE_PROXY = new Proxy(
   },
 );
 
-export const block = (
-  fn: (props?: Props) => VElement,
+export const block = <P extends Props>(
+  fn: (props?: P) => VElement,
   unwrap?: (vnode: any) => VNode,
-  shouldUpdate?: (oldProps: Props, newProps: Props) => boolean,
+  shouldUpdate?: (oldProps: P, newProps: P) => boolean,
 ) => {
-  const vnode = fn(HOLE_PROXY);
+  const vnode = fn(HOLE_PROXY as P);
   const edits: Edit[] = [];
 
   // Turns vnode into a string of HTML and creates an array of "edits"
@@ -52,10 +52,10 @@ export const block = (
     renderToTemplate(unwrap ? unwrap(vnode) : vnode, edits),
   );
 
-  return <T extends Props>(
+  return <T extends P>(
     props?: T | null,
     key?: string,
-    shouldUpdateCurrentBlock?: (oldProps: Props, newProps: Props) => boolean,
+    shouldUpdateCurrentBlock?: (oldProps: P, newProps: P) => boolean,
   ) => {
     return new Block(
       root,
